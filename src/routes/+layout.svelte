@@ -27,6 +27,6 @@
 </div>
 
 <ModeWatcher />
-<main class="min-h-screen">
+<main class="min-h-screen w-full">
 	{@render children?.()}
 </main>
