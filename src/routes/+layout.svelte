@@ -1,6 +1,7 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import MoonIcon from '@lucide/svelte/icons/moon';
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import { ModeWatcher, toggleMode } from 'mode-watcher';
@@ -26,6 +27,7 @@
 	</Button>
 </div>
 
+<Toaster duration={6000} closeButton />
 <ModeWatcher />
 <main class="min-h-screen w-full">
 	{@render children?.()}
