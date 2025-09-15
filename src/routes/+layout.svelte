@@ -27,7 +27,7 @@
 	</Button>
 </div>
 
-<Toaster duration={6000} closeButton />
+<Toaster duration={8000} closeButton />
 <ModeWatcher />
 <main class="min-h-screen w-full">
 	{@render children?.()}
