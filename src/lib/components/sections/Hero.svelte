@@ -18,13 +18,13 @@
 	<Particles />
 	<div class="flex w-full flex-col items-center gap-8 md:gap-12">
 		<div
-			class="overflow-hidden rounded-full border-4 border-primary shadow-2xl shadow-primary/20"
+			class="overflow-hidden rounded-full shadow-2xl shadow-primary/20"
 			transition:fly={{ duration: 1000, y: -200 }}
 		>
 			<img
 				src="/avatar_large.png"
 				alt="Adrian"
-				class="h-48 w-48 object-cover transition-transform hover:scale-115 md:h-64 md:w-64"
+				class="size-48 object-cover transition-transform hover:scale-115 md:size-64"
 			/>
 		</div>
 		<div class="flex flex-col items-center gap-4 text-center">
@@ -38,7 +38,7 @@
 				class="text-xl font-medium text-muted-foreground md:text-3xl"
 				transition:fly={{ delay: 200, duration: 1000, y: 200 }}
 			>
-				Welcome to my digital space!
+				Full-Stack Developer & Tech Enthusiast
 			</h2>
 		</div>
 		<div class="flex justify-center gap-2">
