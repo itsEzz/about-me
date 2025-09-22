@@ -44,7 +44,7 @@
 		<div class="flex justify-center gap-2">
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
 				<Button
-					class="cursor-pointer transition-all hover:scale-105"
+					class="cursor-pointer"
 					href="https://github.com/itsEzz"
 					target="_blank"
 					rel="noreferrer noopener"
@@ -54,7 +54,7 @@
 			</div>
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
 				<Button
-					class="cursor-pointer transition-all hover:scale-105"
+					class="cursor-pointer"
 					href="https://www.linkedin.com/in/adriangast/"
 					target="_blank"
 					rel="noreferrer noopener"
@@ -63,10 +63,7 @@
 				</Button>
 			</div>
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
-				<Button
-					class="cursor-pointer transition-all hover:scale-105"
-					onclick={() => handleClickScrollTo('contact-section')}
-				>
+				<Button class="cursor-pointer" onclick={() => handleClickScrollTo('contact-section')}>
 					<MailIcon />
 					Contact Me
 				</Button>
