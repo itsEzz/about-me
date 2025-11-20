@@ -19,7 +19,7 @@
 	<Card.Content>
 		<div class="flex items-start gap-4">
 			<div
-				class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-foreground/10 transition-colors duration-300 group-hover:bg-primary/10"
+				class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-foreground/10 transition-colors duration-300 group-hover:bg-primary/10"
 			>
 				<CardIcon size={24} class="transition-colors duration-300 group-hover:text-primary" />
 			</div>
