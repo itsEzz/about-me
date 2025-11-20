@@ -1,17 +1,12 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { handleClickScrollTo } from '$lib/utils';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import GithubIcon from '@lucide/svelte/icons/github';
 	import LinkedinIcon from '@lucide/svelte/icons/linkedin';
 	import MailIcon from '@lucide/svelte/icons/mail';
 	import { fly } from 'svelte/transition';
 	import Particles from '../hero/particles.svelte';
-
-	// Handler Functions
-	function handleClickScrollTo(id: string) {
-		const aboutSection = document.getElementById(id);
-		aboutSection?.scrollIntoView({ behavior: 'smooth' });
-	}
 </script>
 
 <section class="flex min-h-screen items-center justify-center">
@@ -63,7 +58,7 @@
 				</Button>
 			</div>
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
-				<Button class="cursor-pointer" onclick={() => handleClickScrollTo('contact-section')}>
+				<Button class="cursor-pointer" onclick={() => handleClickScrollTo('contact')}>
 					<MailIcon />
 					Contact Me
 				</Button>
@@ -75,7 +70,7 @@
 				variant="outline"
 				size="lg"
 				aria-label="Scroll to about section"
-				onclick={() => handleClickScrollTo('about-section')}
+				onclick={() => handleClickScrollTo('about')}
 			>
 				<ChevronDownIcon />
 				Learn More

@@ -130,7 +130,7 @@
 	{/snippet}
 </DialogDrawer>
 
-<section class="min-h-screen bg-secondary/20 px-4 py-20" id="contact-section">
+<section class="min-h-screen bg-secondary/20 px-4 py-20" id="contact">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-16 text-center">
 			<h2 class="mb-6 text-3xl font-bold text-foreground md:text-4xl">Let's Connect</h2>
