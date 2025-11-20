@@ -167,6 +167,7 @@
 														disabled={$submitting}
 														placeholder="Your full name"
 														class="pl-10"
+														autocomplete="name"
 													/>
 												</div>
 											{/snippet}
@@ -190,6 +191,7 @@
 														placeholder="Your e-mail"
 														type="email"
 														class="pl-10"
+														autocomplete="email"
 													/>
 												</div>
 											{/snippet}
