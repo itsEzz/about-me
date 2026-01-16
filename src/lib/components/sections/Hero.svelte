@@ -33,7 +33,7 @@
 				class="text-xl font-medium text-muted-foreground md:text-3xl"
 				transition:fly={{ delay: 200, duration: 1000, y: 200 }}
 			>
-				Full-Stack Developer & Tech Enthusiast
+				Full-Stack Developer, SOAR Professional & Tech Enthusiast
 			</h2>
 		</div>
 		<div class="flex justify-center gap-2">
