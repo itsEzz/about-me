@@ -3,8 +3,9 @@
 	import type { Component } from 'svelte';
 	import type { IconProps } from '@lucide/svelte';
 
+	// Props
 	interface Props {
-		icon: Component<IconProps, {}, ''>;
+		icon: Component<IconProps, object, ''>;
 		title: string;
 		description: string;
 		href: string;
