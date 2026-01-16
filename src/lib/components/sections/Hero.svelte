@@ -64,16 +64,17 @@
 				</Button>
 			</div>
 		</div>
+		<!-- TODO update later -->
 		<div transition:fly={{ delay: 400, duration: 1000, y: 200 }}>
 			<Button
 				class="mt-4 animate-bounce cursor-pointer transition-all hover:scale-105"
 				variant="outline"
 				size="lg"
-				aria-label="Scroll to about section"
-				onclick={() => handleClickScrollTo('about')}
+				aria-label="Scroll to contact me section"
+				onclick={() => handleClickScrollTo('contact')}
 			>
 				<ChevronDownIcon />
-				Learn More
+				Contact Me
 			</Button>
 		</div>
 	</div>
