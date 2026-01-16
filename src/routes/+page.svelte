@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import Contact from '$lib/components/sections/Contact.svelte';
 	import Hero from '$lib/components/sections/Hero.svelte';
 	import { contactFormSchema } from '$lib/schemas/contact-schema';
 	import type { ContactComponent } from '$lib/types/contact';
+	import SvelteSeo from 'svelte-seo';
 	import { toast } from 'svelte-sonner';
 	import { superForm } from 'sveltekit-superforms';
 	import { zod4Client } from 'sveltekit-superforms/adapters';
@@ -41,6 +43,36 @@
 		}
 	});
 </script>
+
+<SvelteSeo
+	title="Adrian - Full-Stack Developer, SOAR Professional & Tech Enthusiast"
+	description="Hi, I'm Adrian, a passionate Full-Stack Developer, SOAR Professional, and Tech Enthusiast. Explore my portfolio and get in touch to collaborate on innovative projects."
+	keywords="Adrian, Full-Stack Developer, SOAR Professional, Tech Enthusiast, Web Development, Software Engineer, Portfolio"
+	canonical={page.url.href}
+	openGraph={{
+		title: 'Adrian - Full-Stack Developer, SOAR Professional & Tech Enthusiast',
+		description:
+			"Hi, I'm Adrian, a passionate Full-Stack Developer, SOAR Professional, and Tech Enthusiast. Explore my portfolio and get in touch to collaborate on innovative projects.",
+		images: [{ url: '/avatar_large.png' }],
+		url: page.url.href,
+		type: 'website',
+		site_name: "Adrian's Portfolio"
+	}}
+	twitter={{
+		title: 'Adrian - Full-Stack Developer, SOAR Professional & Tech Enthusiast',
+		description:
+			"Hi, I'm Adrian, a passionate Full-Stack Developer, SOAR Professional, and Tech Enthusiast. Explore my portfolio and get in touch to collaborate on innovative projects.",
+		image: '/avatar_large.png'
+	}}
+	jsonLd={{
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		name: 'Adrian - Full-Stack Developer, SOAR Professional & Tech Enthusiast',
+		description:
+			"Hi, I'm Adrian, a passionate Full-Stack Developer, SOAR Professional, and Tech Enthusiast. Explore my portfolio and get in touch to collaborate on innovative projects.",
+		url: page.url.href
+	}}
+/>
 
 <Hero />
 <Contact {form} bind:this={contactComponent} />
