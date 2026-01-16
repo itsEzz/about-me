@@ -1,3 +1,4 @@
+import { replaceState } from '$app/navigation';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -15,5 +16,5 @@ export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?:
 export function handleClickScrollTo(id: string) {
 	const section = document.getElementById(id);
 	section?.scrollIntoView({ behavior: 'smooth' });
-	window.history.replaceState(null, '', `#${id}`);
+	replaceState('', `#${id}`);
 }
