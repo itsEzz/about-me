@@ -1,5 +1,6 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
+	import ScrollToTop from '$lib/components/common/scroll-to-top.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import MoonIcon from '@lucide/svelte/icons/moon';
@@ -29,6 +30,7 @@
 
 <Toaster duration={8000} closeButton />
 <ModeWatcher />
+<ScrollToTop />
 <main class="min-h-screen w-full">
 	{@render children?.()}
 </main>
