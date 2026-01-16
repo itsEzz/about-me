@@ -118,8 +118,8 @@
 			</p>
 			<p>
 				<strong>Your rights</strong><br />
-				You have the right to withdraw your consent at any time, request access to your data, or ask
-				for its deletion.
+				You have the right to withdraw your consent at any time, request access to your data, or ask for
+				its deletion.
 			</p>
 			<p>
 				<strong>Contact</strong><br />
