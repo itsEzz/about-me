@@ -32,6 +32,7 @@
 	// States & Variables
 	let openPrivacyNotice = $state<boolean>(false);
 	let resetTurnstile = $state<() => void>();
+	// svelte-ignore state_referenced_locally
 	const { form: formData, enhance, submitting, constraints } = form;
 
 	// Handler Functions

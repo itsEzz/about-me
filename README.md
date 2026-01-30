@@ -12,6 +12,7 @@ My personal website built with SvelteKit.
 ## Environment Setup
 
 Copy `.env.example` to `.env` and configure:
+
 - Email service for contact form
 - Cloudflare Turnstile keys
 
