@@ -36,7 +36,7 @@
 				<a
 					{href}
 					target="_blank"
-					rel="noopener noreferrer"
+					rel="external noopener noreferrer"
 					aria-label="Visit {title} profile (opens in new tab)"
 					class="inline-flex items-center gap-2 text-primary underline-offset-4 transition-all duration-300 hover:gap-3 hover:underline"
 				>
