@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { contactFormSchema } from '$lib/schemas/contact-schema.js';
+import { createChildLogger } from '$lib/server/logger.js';
 import { rateLimiter } from '$lib/server/rate-limiter.js';
 import type { TurnstileVerifyResponse } from '$lib/types/turnstile.js';
 import { failure, isError, success, tca, type Result } from '@itsezz/try-catch';
@@ -18,6 +19,8 @@ const transport = nodemailer.createTransport({
 		pass: env.SMTP_PASS
 	}
 });
+
+const logger = createChildLogger('contact-page');
 
 const turnstileErrorMessages: Record<string, string> = {
 	'missing-input-secret': 'Server configuration error. Please try again later.',
@@ -49,14 +52,23 @@ async function validateTurnstileToken(token: string): Promise<Result<boolean, st
 		return data;
 	});
 
-	if (isError(response)) return failure('Turnstile token validation failed');
+	if (isError(response)) {
+		logger.error(response.error, 'Turnstile verification request failed');
+		return failure('Turnstile token validation failed');
+	}
 
 	if (!response.data.success) {
 		if (response.data['error-codes'].length > 0) {
 			const errorCode = response.data['error-codes'][0];
 			const errorMessage = turnstileErrorMessages[errorCode] || 'Please try again.';
+			logger.error(
+				`Turnstile verification failed with error codes: ${response.data['error-codes'].join(', ')}`
+			);
 			return failure(errorMessage);
-		} else return failure('Please refresh the page and try again.');
+		} else {
+			logger.error('Turnstile verification failed without error codes');
+			return failure('Please refresh the page and try again.');
+		}
 	}
 
 	return success(true);
@@ -118,7 +130,8 @@ export const actions = {
 			})
 		);
 
-		if (isError(mailResult))
+		if (isError(mailResult)) {
+			logger.error(mailResult.error, 'Failed to send contact form email');
 			return fail(400, {
 				form,
 				error: {
@@ -126,6 +139,7 @@ export const actions = {
 					description: "We couldn't send your message right now. Please try again in a few minutes."
 				}
 			});
+		}
 
 		return {
 			form
