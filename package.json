@@ -1,8 +1,30 @@
 {
 	"name": "about-me",
-	"private": true,
 	"version": "0.0.1",
+	"description": "A personal portfolio/about-me website built with SvelteKit",
 	"type": "module",
+	"private": true,
+	"author": "@itsEzz",
+	"license": "MIT",
+	"homepage": "https://github.com/itsEzz/about-me#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/itsEzz/about-me.git"
+	},
+	"bugs": {
+		"url": "https://github.com/itsEzz/about-me/issues"
+	},
+	"keywords": [
+		"portfolio",
+		"personal-website",
+		"sveltekit",
+		"typescript"
+	],
+	"engines": {
+		"node": ">=20.0.0",
+		"pnpm": ">=10.0.0"
+	},
+	"packageManager": "pnpm@10.15.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
