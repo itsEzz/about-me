@@ -1,6 +1,6 @@
 {
 	"name": "about-me",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "A personal portfolio/about-me website built with SvelteKit",
 	"type": "module",
 	"private": true,
