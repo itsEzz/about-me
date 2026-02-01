@@ -35,6 +35,17 @@
 	// svelte-ignore state_referenced_locally
 	const { form: formData, enhance, submitting, constraints } = form;
 
+	// Functions
+	function setTurnstileTokenWithoutTaint(token: string) {
+		formData.update(
+			($form) => {
+				$form.turnstileToken = token;
+				return $form;
+			},
+			{ taint: false }
+		);
+	}
+
 	// Handler Functions
 	function handleOpenPrivacyNotice() {
 		openPrivacyNotice = true;
@@ -48,7 +59,7 @@
 		>
 	) {
 		resetTurnstile = () => e.detail.turnstile.reset(e.detail.widgetId);
-		$formData.turnstileToken = e.detail.token;
+		setTurnstileTokenWithoutTaint(e.detail.token);
 	}
 
 	function handleTurnstileError(
@@ -58,14 +69,14 @@
 			}>
 		>
 	) {
-		$formData.turnstileToken = '';
+		setTurnstileTokenWithoutTaint('');
 		toast.error('Turnstile captcha error', {
 			description: `An error occurred while verifying the captcha. Please try again. (Code: ${e.detail.code})`
 		});
 	}
 
 	function handleTurnstileExpired(e: CustomEvent<TurnstileEventDetail<Record<string, never>>>) {
-		$formData.turnstileToken = '';
+		setTurnstileTokenWithoutTaint('');
 		resetTurnstile = () => e.detail.turnstile.reset(e.detail.widgetId);
 		toast.info('Turnstile captcha expired', {
 			description: 'The captcha has expired. Please complete it again.'
@@ -73,7 +84,7 @@
 	}
 
 	function handleTurnstileTimeout(e: CustomEvent<TurnstileEventDetail<Record<string, never>>>) {
-		$formData.turnstileToken = '';
+		setTurnstileTokenWithoutTaint('');
 		resetTurnstile = () => e.detail.turnstile.reset(e.detail.widgetId);
 		toast.warning('Turnstile captcha timeout', {
 			description:
@@ -82,7 +93,7 @@
 	}
 
 	function handleTurnstileUnsupported() {
-		$formData.turnstileToken = '';
+		setTurnstileTokenWithoutTaint('');
 		toast.error('Turnstile captcha unsupported', {
 			description:
 				'Your browser does not support the captcha. Please ensure your browser is up to date or try a different device.'
