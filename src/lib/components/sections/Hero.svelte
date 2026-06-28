@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { handleClickScrollTo } from '$lib/utils';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import GithubIcon from '@lucide/svelte/icons/github';
 	import LinkedinIcon from '@lucide/svelte/icons/linkedin';
 	import MailIcon from '@lucide/svelte/icons/mail';
 	import { fly } from 'svelte/transition';
 	import Particles from '../hero/particles.svelte';
+	import { handleClickScrollTo } from '$lib/utils/scroll';
 </script>
 
 <section class="flex min-h-screen items-center justify-center">
