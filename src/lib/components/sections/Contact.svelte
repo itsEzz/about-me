@@ -7,9 +7,8 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import type { ContactFormSchema } from '$lib/schemas/contact-schema';
+	import { ExternalLinkIcon } from '@lucide/svelte';
 	import FileTextIcon from '@lucide/svelte/icons/file-text';
-	import GithubIcon from '@lucide/svelte/icons/github';
-	import LinkedinIcon from '@lucide/svelte/icons/linkedin';
 	import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle';
 	import MailIcon from '@lucide/svelte/icons/mail';
 	import MessageSquareIcon from '@lucide/svelte/icons/message-square';
@@ -20,7 +19,7 @@
 	import { toast } from 'svelte-sonner';
 	import type { Infer, SuperForm } from 'sveltekit-superforms';
 	import DialogDrawer from '../common/dialog-drawer.svelte';
-	import SocialCard from '../contact/SocialCard.svelte';
+	import SocialCard from '../contact/social-card.svelte';
 
 	// Props
 	interface Props {
@@ -142,7 +141,7 @@
 	{/snippet}
 </DialogDrawer>
 
-<section class="min-h-screen bg-secondary/20 px-4 py-20" id="contact">
+<section class="min-h-screen px-4 py-20" id="contact">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-16 text-center">
 			<h2 class="mb-6 text-3xl font-bold text-foreground md:text-4xl">Let's Connect</h2>
@@ -382,13 +381,13 @@
 
 					<div class="space-y-6">
 						<SocialCard
-							icon={GithubIcon}
+							icon={ExternalLinkIcon}
 							title="GitHub"
 							description="Check out my open source projects and contributions."
 							href="https://github.com/itsEzz"
 						/>
 						<SocialCard
-							icon={LinkedinIcon}
+							icon={ExternalLinkIcon}
 							title="LinkedIn"
 							description="Let's connect professionally and discuss opportunities."
 							href="https://linkedin.com/in/adriangast"

@@ -34,21 +34,20 @@
 </script>
 
 {#if isVisible}
-	<Tooltip.Provider>
-		<Tooltip.Root>
-			<Tooltip.Trigger
-				class={cn(
-					'fixed right-6 bottom-6 z-50 shadow-lg transition-opacity duration-300 hover:shadow-xl',
-					buttonVariants({ variant: 'secondary', size: 'icon' })
-				)}
-				onclick={scrollToTop}
-				aria-label="Scroll to top"
-			>
-				<ArrowUpIcon />
-			</Tooltip.Trigger>
-			<Tooltip.Content>
-				<p>Scroll to top</p>
-			</Tooltip.Content>
-		</Tooltip.Root>
-	</Tooltip.Provider>
+	<Tooltip.Root>
+		<Tooltip.Trigger
+			class={cn(
+				'fixed right-6 bottom-6 z-50 shadow-lg transition-opacity duration-300 hover:shadow-xl',
+				buttonVariants({ variant: 'secondary', size: 'icon' })
+			)}
+			onclick={scrollToTop}
+			aria-label="Scroll to top"
+		>
+			<ArrowUpIcon />
+			<span class="sr-only">Scroll to top</span>
+		</Tooltip.Trigger>
+		<Tooltip.Content>
+			<p>Scroll to top</p>
+		</Tooltip.Content>
+	</Tooltip.Root>
 {/if}

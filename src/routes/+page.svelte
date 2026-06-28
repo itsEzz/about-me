@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import Contact from '$lib/components/sections/Contact.svelte';
-	import Hero from '$lib/components/sections/Hero.svelte';
+	import Contact from '$lib/components/sections/contact.svelte';
+	import Hero from '$lib/components/sections/hero.svelte';
+	import Projects from '$lib/components/sections/projects.svelte';
 	import { contactFormSchema } from '$lib/schemas/contact-schema';
 	import type { ContactComponent } from '$lib/types/contact';
 	import SvelteSeo from 'svelte-seo';
@@ -76,4 +77,5 @@
 />
 
 <Hero />
+<Projects />
 <Contact {form} bind:this={contactComponent} />

@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { handleClickScrollTo } from '$lib/utils/scroll';
+	import { ExternalLinkIcon } from '@lucide/svelte';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
-	import GithubIcon from '@lucide/svelte/icons/github';
-	import LinkedinIcon from '@lucide/svelte/icons/linkedin';
 	import MailIcon from '@lucide/svelte/icons/mail';
 	import { fly } from 'svelte/transition';
 	import Particles from '../hero/particles.svelte';
-	import { handleClickScrollTo } from '$lib/utils/scroll';
 </script>
 
 <section class="flex min-h-screen items-center justify-center">
+	<!-- TODO replace particles with another background effect -->
 	<Particles />
 	<div class="flex w-full flex-col items-center gap-8 md:gap-12">
 		<div
@@ -42,9 +42,9 @@
 					class="cursor-pointer"
 					href="https://github.com/itsEzz"
 					target="_blank"
-					rel="noreferrer noopener"
+					rel="external noreferrer noopener"
 				>
-					<GithubIcon /> GitHub
+					<ExternalLinkIcon /> GitHub
 				</Button>
 			</div>
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
@@ -52,9 +52,9 @@
 					class="cursor-pointer"
 					href="https://www.linkedin.com/in/adriangast/"
 					target="_blank"
-					rel="noreferrer noopener"
+					rel="external noreferrer noopener"
 				>
-					<LinkedinIcon /> LinkedIn
+					<ExternalLinkIcon /> LinkedIn
 				</Button>
 			</div>
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
@@ -71,10 +71,10 @@
 				variant="outline"
 				size="lg"
 				aria-label="Scroll to contact me section"
-				onclick={() => handleClickScrollTo('contact')}
+				onclick={() => handleClickScrollTo('projects')}
 			>
 				<ChevronDownIcon />
-				Contact Me
+				Projects
 			</Button>
 		</div>
 	</div>
