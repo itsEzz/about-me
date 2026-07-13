@@ -1,4 +1,4 @@
-import { replaceState } from "$app/navigation";
+import { replaceState } from '$app/navigation';
 
 export function handleClickScrollTo(id: string) {
 	const section = document.getElementById(id);
