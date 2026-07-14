@@ -1,5 +1,4 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
 	import ScrollToTop from '$lib/components/common/scroll-to-top.svelte';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
@@ -13,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href="favicon.svg" />
 </svelte:head>
 
 <Tooltip.Provider>
