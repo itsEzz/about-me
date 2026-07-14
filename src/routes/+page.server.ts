@@ -75,8 +75,10 @@ async function validateTurnstileToken(token: string): Promise<Result<boolean, st
 }
 
 export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod4(contactFormSchema));
+
 	return {
-		form: await superValidate(zod4(contactFormSchema))
+		form
 	};
 };
 
