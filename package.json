@@ -34,7 +34,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"scs:update": "pnpm dlx shadcn-svelte@latest update"
+		"sc:update": "pnpm dlx shadcn-svelte@latest update"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",
