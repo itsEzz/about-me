@@ -64,7 +64,6 @@
 				</Button>
 			</div>
 		</div>
-		<!-- TODO update later -->
 		<div transition:fly={{ delay: 400, duration: 1000, y: 200 }}>
 			<Button
 				class="mt-4 animate-bounce cursor-pointer transition-all hover:scale-105"
