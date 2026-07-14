@@ -28,8 +28,8 @@
 
 		{#if tags.length > 0}
 			<div class="flex flex-wrap gap-1.5">
-				{#each tags as tag}
-					<Badge variant={'secondary'}>
+				{#each tags as tag (tag)}
+					<Badge variant="secondary">
 						{tag}
 					</Badge>
 				{/each}
