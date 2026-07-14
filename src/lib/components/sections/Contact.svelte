@@ -148,251 +148,249 @@
 			<div class="mx-auto h-1 w-20 rounded-full bg-primary"></div>
 		</div>
 
-		<div class="mx-auto max-w-6xl">
-			<div class="grid gap-12 lg:grid-cols-2">
-				<div class="space-y-8">
-					<div>
-						<h3 class="mb-4 text-2xl font-semibold text-foreground">Send me a message</h3>
-						<p class="text-muted-foreground">
-							Fill out the form below and I'll get back to you as soon as possible.
-						</p>
-					</div>
-					<form method="POST" use:enhance>
-						<Card.Root class="gap-2 bg-background">
-							<Card.Content>
-								<fieldset class="flex flex-col gap-2">
-									<legend class="sr-only">Contact Form</legend>
-									<Form.Field {form} name="name">
-										<Form.Control>
-											{#snippet children({ props })}
-												<Form.Label>Name</Form.Label>
-												<div class="relative">
-													<UserIcon
-														class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-														aria-hidden="true"
-													/>
-													<Input
-														{...props}
-														{...$constraints.name}
-														bind:value={$formData.name}
-														disabled={$submitting}
-														placeholder="Your full name"
-														class="pl-10"
-														autocomplete="name"
-													/>
-												</div>
-											{/snippet}
-										</Form.Control>
-										<Form.FieldErrors />
-									</Form.Field>
-									<Form.Field {form} name="email">
-										<Form.Control>
-											{#snippet children({ props })}
-												<Form.Label>E-Mail</Form.Label>
-												<div class="relative">
-													<MailIcon
-														class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-														aria-hidden="true"
-													/>
-													<Input
-														{...props}
-														{...$constraints.email}
-														bind:value={$formData.email}
-														disabled={$submitting}
-														placeholder="Your e-mail"
-														type="email"
-														class="pl-10"
-														autocomplete="email"
-													/>
-												</div>
-											{/snippet}
-										</Form.Control>
-										<Form.FieldErrors />
-									</Form.Field>
-									<Form.Field {form} name="subject">
-										<Form.Control>
-											{#snippet children({ props })}
-												<Form.Label>Subject</Form.Label>
-												<div class="relative">
-													<FileTextIcon
-														class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-														aria-hidden="true"
-													/>
-													<Input
-														{...props}
-														{...$constraints.subject}
-														bind:value={$formData.subject}
-														disabled={$submitting}
-														placeholder="Subject of your message"
-														class="pl-10"
-													/>
-												</div>
-											{/snippet}
-										</Form.Control>
-										<Form.FieldErrors />
-									</Form.Field>
-									<Form.Field {form} name="message">
-										<Form.Control>
-											{#snippet children({ props })}
-												<Form.Label>Message</Form.Label>
-												<div class="relative">
-													<MessageSquareIcon
-														class="absolute top-3 left-3 size-4 text-muted-foreground"
-														aria-hidden="true"
-													/>
-													<Textarea
-														{...props}
-														{...$constraints.message}
-														bind:value={$formData.message}
-														disabled={$submitting}
-														placeholder="Why are you reaching out?"
-														class="max-h-96 pl-10"
-													/>
-												</div>
-											{/snippet}
-										</Form.Control>
-										<Form.FieldErrors />
-									</Form.Field>
-									<Form.Field {form} name="phoneNumber">
-										<Form.Control>
-											{#snippet children({ props })}
-												<Form.Label>Phone or mobile number (optional)</Form.Label>
-												<div class="relative">
-													<PhoneIcon
-														class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-														aria-hidden="true"
-													/>
-													<Input
-														{...props}
-														{...$constraints.phoneNumber}
-														bind:value={$formData.phoneNumber}
-														disabled={$submitting}
-														placeholder="How can I reach you by phone?"
-														aria-describedby="phone-description"
-														class="pl-10"
-													/>
-												</div>
-											{/snippet}
-										</Form.Control>
-										<Form.Description id="phone-description">
-											Please provide your number according to the
-											<Button
-												href="https://en.wikipedia.org/wiki/E.164"
-												target="_blank"
-												rel="noopener noreferrer"
-												variant="link"
-												class="inline h-fit cursor-pointer p-0 align-baseline"
-											>
-												E.164
-											</Button>
-											international standard.
-										</Form.Description>
-										<Form.FieldErrors />
-									</Form.Field>
-									<Form.Field {form} name="consent">
-										<Form.Control>
-											{#snippet children({ props })}
-												<div class="flex items-start gap-2">
-													<Checkbox
-														{...props}
-														{...$constraints.consent}
-														bind:checked={$formData.consent}
-														onCheckedChange={handleOnCheckedChangeConsent}
-													/>
-													<div class="grid gap-2">
-														<Form.Label>Consent to data processing</Form.Label>
-														<p class="text-sm text-muted-foreground">
-															By checking this box, you agree to the following <Button
-																onclick={handleOpenPrivacyNotice}
-																variant="link"
-																class="inline h-fit cursor-pointer p-0 align-baseline"
-															>
-																Privacy Notice
-															</Button>.
-														</p>
-													</div>
-												</div>
-											{/snippet}
-										</Form.Control>
-										<Form.FieldErrors />
-									</Form.Field>
-									<Form.Field {form} name="turnstileToken">
-										<Form.Control>
-											{#snippet children({ props })}
-												<Form.Label>Captcha</Form.Label>
-												<div
-													use:turnstile
-													turnstile-sitekey={env.PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}
-													turnstile-theme="auto"
-													turnstile-size="flexible"
-													turnstile-language="en"
-													turnstile-response-field-name="turnstileToken"
-													turnstile-response-field
-													onturnstile={handleTurnstile}
-													onturnstileerror={handleTurnstileError}
-													onturnstileexpired={handleTurnstileExpired}
-													onturnstiletimeout={handleTurnstileTimeout}
-													onturnstileunsupported={handleTurnstileUnsupported}
-													aria-label="Complete the captcha to submit the form"
-													role="group"
-												></div>
-
+		<div class="grid gap-12 lg:grid-cols-2">
+			<div class="space-y-8">
+				<div>
+					<h3 class="mb-4 text-2xl font-semibold text-foreground">Send me a message</h3>
+					<p class="text-muted-foreground">
+						Fill out the form below and I'll get back to you as soon as possible.
+					</p>
+				</div>
+				<form method="POST" use:enhance>
+					<Card.Root class="gap-2 bg-background">
+						<Card.Content>
+							<fieldset class="flex flex-col gap-2">
+								<legend class="sr-only">Contact Form</legend>
+								<Form.Field {form} name="name">
+									<Form.Control>
+										{#snippet children({ props })}
+											<Form.Label>Name</Form.Label>
+											<div class="relative">
+												<UserIcon
+													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+													aria-hidden="true"
+												/>
 												<Input
 													{...props}
-													{...$constraints.turnstileToken}
-													value={$formData.turnstileToken}
+													{...$constraints.name}
+													bind:value={$formData.name}
 													disabled={$submitting}
-													hidden
-													aria-label="Captcha token"
+													placeholder="Your full name"
+													class="pl-10"
+													autocomplete="name"
 												/>
-											{/snippet}
-										</Form.Control>
-										<Form.FieldErrors />
-									</Form.Field>
-								</fieldset>
-							</Card.Content>
-							<Card.Footer>
-								<Form.Button
-									disabled={$submitting}
-									aria-label={$submitting ? 'Sending Message...' : 'Send Message'}
-									class="w-full cursor-pointer"
-								>
-									{#if $submitting}
-										<LoaderCircleIcon class="animate-spin" aria-hidden="true" role="status" />
-										<span class="sr-only">Sending message...</span>
-										Sending Message...
-									{:else}
-										<SendIcon aria-hidden="true" />
-										Send Message
-									{/if}
-								</Form.Button>
-							</Card.Footer>
-						</Card.Root>
-					</form>
+											</div>
+										{/snippet}
+									</Form.Control>
+									<Form.FieldErrors />
+								</Form.Field>
+								<Form.Field {form} name="email">
+									<Form.Control>
+										{#snippet children({ props })}
+											<Form.Label>E-Mail</Form.Label>
+											<div class="relative">
+												<MailIcon
+													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+													aria-hidden="true"
+												/>
+												<Input
+													{...props}
+													{...$constraints.email}
+													bind:value={$formData.email}
+													disabled={$submitting}
+													placeholder="Your e-mail"
+													type="email"
+													class="pl-10"
+													autocomplete="email"
+												/>
+											</div>
+										{/snippet}
+									</Form.Control>
+									<Form.FieldErrors />
+								</Form.Field>
+								<Form.Field {form} name="subject">
+									<Form.Control>
+										{#snippet children({ props })}
+											<Form.Label>Subject</Form.Label>
+											<div class="relative">
+												<FileTextIcon
+													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+													aria-hidden="true"
+												/>
+												<Input
+													{...props}
+													{...$constraints.subject}
+													bind:value={$formData.subject}
+													disabled={$submitting}
+													placeholder="Subject of your message"
+													class="pl-10"
+												/>
+											</div>
+										{/snippet}
+									</Form.Control>
+									<Form.FieldErrors />
+								</Form.Field>
+								<Form.Field {form} name="message">
+									<Form.Control>
+										{#snippet children({ props })}
+											<Form.Label>Message</Form.Label>
+											<div class="relative">
+												<MessageSquareIcon
+													class="absolute top-3 left-3 size-4 text-muted-foreground"
+													aria-hidden="true"
+												/>
+												<Textarea
+													{...props}
+													{...$constraints.message}
+													bind:value={$formData.message}
+													disabled={$submitting}
+													placeholder="Why are you reaching out?"
+													class="max-h-96 pl-10"
+												/>
+											</div>
+										{/snippet}
+									</Form.Control>
+									<Form.FieldErrors />
+								</Form.Field>
+								<Form.Field {form} name="phoneNumber">
+									<Form.Control>
+										{#snippet children({ props })}
+											<Form.Label>Phone or mobile number (optional)</Form.Label>
+											<div class="relative">
+												<PhoneIcon
+													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+													aria-hidden="true"
+												/>
+												<Input
+													{...props}
+													{...$constraints.phoneNumber}
+													bind:value={$formData.phoneNumber}
+													disabled={$submitting}
+													placeholder="How can I reach you by phone?"
+													aria-describedby="phone-description"
+													class="pl-10"
+												/>
+											</div>
+										{/snippet}
+									</Form.Control>
+									<Form.Description id="phone-description">
+										Please provide your number according to the
+										<Button
+											href="https://en.wikipedia.org/wiki/E.164"
+											target="_blank"
+											rel="noopener noreferrer"
+											variant="link"
+											class="inline h-fit cursor-pointer p-0 align-baseline"
+										>
+											E.164
+										</Button>
+										international standard.
+									</Form.Description>
+									<Form.FieldErrors />
+								</Form.Field>
+								<Form.Field {form} name="consent">
+									<Form.Control>
+										{#snippet children({ props })}
+											<div class="flex items-start gap-2">
+												<Checkbox
+													{...props}
+													{...$constraints.consent}
+													bind:checked={$formData.consent}
+													onCheckedChange={handleOnCheckedChangeConsent}
+												/>
+												<div class="grid gap-2">
+													<Form.Label>Consent to data processing</Form.Label>
+													<p class="text-sm text-muted-foreground">
+														By checking this box, you agree to the following <Button
+															onclick={handleOpenPrivacyNotice}
+															variant="link"
+															class="inline h-fit cursor-pointer p-0 align-baseline"
+														>
+															Privacy Notice
+														</Button>.
+													</p>
+												</div>
+											</div>
+										{/snippet}
+									</Form.Control>
+									<Form.FieldErrors />
+								</Form.Field>
+								<Form.Field {form} name="turnstileToken">
+									<Form.Control>
+										{#snippet children({ props })}
+											<Form.Label>Captcha</Form.Label>
+											<div
+												use:turnstile
+												turnstile-sitekey={env.PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}
+												turnstile-theme="auto"
+												turnstile-size="flexible"
+												turnstile-language="en"
+												turnstile-response-field-name="turnstileToken"
+												turnstile-response-field
+												onturnstile={handleTurnstile}
+												onturnstileerror={handleTurnstileError}
+												onturnstileexpired={handleTurnstileExpired}
+												onturnstiletimeout={handleTurnstileTimeout}
+												onturnstileunsupported={handleTurnstileUnsupported}
+												aria-label="Complete the captcha to submit the form"
+												role="group"
+											></div>
+
+											<Input
+												{...props}
+												{...$constraints.turnstileToken}
+												value={$formData.turnstileToken}
+												disabled={$submitting}
+												hidden
+												aria-label="Captcha token"
+											/>
+										{/snippet}
+									</Form.Control>
+									<Form.FieldErrors />
+								</Form.Field>
+							</fieldset>
+						</Card.Content>
+						<Card.Footer>
+							<Form.Button
+								disabled={$submitting}
+								aria-label={$submitting ? 'Sending Message...' : 'Send Message'}
+								class="w-full cursor-pointer"
+							>
+								{#if $submitting}
+									<LoaderCircleIcon class="animate-spin" aria-hidden="true" role="status" />
+									<span class="sr-only">Sending message...</span>
+									Sending Message...
+								{:else}
+									<SendIcon aria-hidden="true" />
+									Send Message
+								{/if}
+							</Form.Button>
+						</Card.Footer>
+					</Card.Root>
+				</form>
+			</div>
+
+			<div class="space-y-8">
+				<div>
+					<h3 class="mb-4 text-2xl font-semibold text-foreground">Visit my socials</h3>
+					<p class="text-muted-foreground">
+						Find me on these platforms to see my work and connect professionally.
+					</p>
 				</div>
 
-				<div class="space-y-8">
-					<div>
-						<h3 class="mb-4 text-2xl font-semibold text-foreground">Visit my socials</h3>
-						<p class="text-muted-foreground">
-							Find me on these platforms to see my work and connect professionally.
-						</p>
-					</div>
-
-					<div class="space-y-6">
-						<SocialCard
-							icon={ExternalLinkIcon}
-							title="GitHub"
-							description="Check out my open source projects and contributions."
-							href="https://github.com/itsEzz"
-						/>
-						<SocialCard
-							icon={ExternalLinkIcon}
-							title="LinkedIn"
-							description="Let's connect professionally and discuss opportunities."
-							href="https://linkedin.com/in/adriangast"
-						/>
-					</div>
+				<div class="space-y-6">
+					<SocialCard
+						icon={ExternalLinkIcon}
+						title="GitHub"
+						description="Check out my open source projects and contributions."
+						href="https://github.com/itsEzz"
+					/>
+					<SocialCard
+						icon={ExternalLinkIcon}
+						title="LinkedIn"
+						description="Let's connect professionally and discuss opportunities."
+						href="https://linkedin.com/in/adriangast"
+					/>
 				</div>
 			</div>
 		</div>
