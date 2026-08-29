@@ -39,7 +39,7 @@
 				)}
 			>
 				<span
-					class="pointer-events-none bg-linear-to-b from-black to-gray-300/80 bg-clip-text text-center text-5xl md:text-7xl leading-none font-semibold whitespace-pre-wrap text-transparent dark:from-white dark:to-slate-900/10"
+					class="pointer-events-none bg-linear-to-b from-black to-gray-300/80 bg-clip-text text-center text-5xl leading-none font-semibold whitespace-pre-wrap text-transparent md:text-7xl dark:from-white dark:to-slate-900/10"
 				>
 					Tech Stack
 				</span>

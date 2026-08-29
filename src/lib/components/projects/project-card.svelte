@@ -36,7 +36,7 @@
 			</div>
 		{/if}
 	</Card.Content>
-	<Card.Footer class="flex flex-wrap gap-2 mt-auto">
+	<Card.Footer class="mt-auto flex flex-wrap gap-2">
 		{#if repoUrl}
 			<Button
 				variant="secondary"
