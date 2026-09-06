@@ -1,10 +1,10 @@
+import { m } from './paraglide/messages';
 import type { Project } from './types/projects';
 
 export const projects: Project[] = [
 	{
 		title: 'Whispr',
-		description:
-			'A secure web application for sharing encrypted messages with configurable expiration and view limits. Create temporary, password-protected messages that self-destruct after being viewed or expiring.',
+		description: m.projects_whispir_description(),
 		tags: [
 			'web-app',
 			'sveltekit',
@@ -22,8 +22,7 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'OBD Tools',
-		description:
-			'A lightweight collection of free, open-source online tools for working with OBD-II data — built specifically for the VAG community and OBDeleven users.',
+		description: m.projects_obd_tools_description(),
 		tags: [
 			'web-app',
 			'sveltekit',
@@ -39,8 +38,7 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'try-catch',
-		description:
-			'A lightweight TypeScript utility for elegant error handling using the Result pattern. Say goodbye to messy try/catch blocks and hello to type-safe, composable error management.',
+		description: m.projects_try_catch_description(),
 		tags: ['library', 'typescript', 'error-handling', 'try-catch', 'result', 'utility'],
 		type: 'package',
 		repoUrl: 'https://github.com/itsEzz/try-catch',
@@ -48,8 +46,7 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'svelte-axios-plus',
-		description:
-			'A Svelte-optimized Axios wrapper that provides reactive request handling, built-in caching, and simplified state management for HTTP requests.',
+		description: m.projects_svelte_axios_plus_description(),
 		tags: ['library', 'sveltekit', 'typescript', 'axios', 'http-client', 'requests', 'utility'],
 		type: 'package',
 		repoUrl: 'https://github.com/itsEzz/svelte-axios-plus',

@@ -1,30 +1,28 @@
-import { z } from 'zod/v4';
+import { m } from '$lib/paraglide/messages';
+import { z } from 'zod';
 
 export const contactFormSchema = z.object({
 	name: z
 		.string()
 		.trim()
-		.min(5, 'Please enter at least 5 characters')
-		.max(50, 'Please enter at most 50 characters'),
-	email: z.email('Please enter a valid email address').toLowerCase(),
+		.min(5, m.contact_schema_name_min_length_error({ length: 5 }))
+		.max(50, m.contact_schema_name_max_length_error({ length: 50 })),
+	email: z.email(m.contact_schema_email_error()).toLowerCase(),
 	subject: z
 		.string()
 		.trim()
-		.min(5, 'Please enter at least 5 characters')
-		.max(150, 'Please enter at most 150 characters'),
+		.min(5, m.contact_schema_subject_min_length_error({ length: 5 }))
+		.max(150, m.contact_schema_subject_max_length_error({ length: 150 })),
 	message: z
 		.string()
 		.trim()
-		.min(10, 'Please enter at least 10 characters')
-		.max(2000, 'Please enter at most 2000 characters'),
-	phoneNumber: z
-		.e164('Please enter a valid phone number or keep empty')
-		.optional()
-		.or(z.literal('')),
+		.min(10, m.contact_schema_message_min_length_error({ length: 10 }))
+		.max(2000, m.contact_schema_message_max_length_error({ length: 2000 })),
+	phoneNumber: z.e164(m.contact_schema_phone_error()).optional().or(z.literal('')),
 	consent: z.boolean().refine((val) => val === true, {
-		message: 'Your consent to data processing is required'
+		message: m.contact_schema_consent_error()
 	}),
-	turnstileToken: z.string().trim().nonempty('Please complete turnstile challenge')
+	turnstileToken: z.string().trim().nonempty(m.contact_schema_captcha_error())
 });
 
 export type ContactFormSchema = typeof contactFormSchema;

@@ -5,7 +5,8 @@
 	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import * as Form from '$lib/components/ui/form/index.js';
 	import { Input } from '$lib/components/ui/input';
-	import { Textarea } from '$lib/components/ui/textarea/index.js';
+	import * as InputGroup from '$lib/components/ui/input-group/index.js';
+	import { m } from '$lib/paraglide/messages';
 	import type { ContactFormSchema } from '$lib/schemas/contact-schema';
 	import { ExternalLinkIcon } from '@lucide/svelte';
 	import FileTextIcon from '@lucide/svelte/icons/file-text';
@@ -69,33 +70,31 @@
 		>
 	) {
 		setTurnstileTokenWithoutTaint('');
-		toast.error('Turnstile captcha error', {
-			description: `An error occurred while verifying the captcha. Please try again. (Code: ${e.detail.code})`
+		toast.error(m.contact_client_turnstile_error_title(), {
+			description: m.contact_client_turnstile_error_description({ code: e.detail.code })
 		});
 	}
 
 	function handleTurnstileExpired(e: CustomEvent<TurnstileEventDetail<Record<string, never>>>) {
 		setTurnstileTokenWithoutTaint('');
 		resetTurnstile = () => e.detail.turnstile.reset(e.detail.widgetId);
-		toast.info('Turnstile captcha expired', {
-			description: 'The captcha has expired. Please complete it again.'
+		toast.info(m.contact_client_turnstile_expired_title(), {
+			description: m.contact_client_turnstile_expired_description()
 		});
 	}
 
 	function handleTurnstileTimeout(e: CustomEvent<TurnstileEventDetail<Record<string, never>>>) {
 		setTurnstileTokenWithoutTaint('');
 		resetTurnstile = () => e.detail.turnstile.reset(e.detail.widgetId);
-		toast.warning('Turnstile captcha timeout', {
-			description:
-				'The captcha request has timed out. This may be due to slow internet connection. Please try again.'
+		toast.warning(m.contact_client_turnstile_timeout_title(), {
+			description: m.contact_client_turnstile_timeout_description()
 		});
 	}
 
 	function handleTurnstileUnsupported() {
 		setTurnstileTokenWithoutTaint('');
-		toast.error('Turnstile captcha unsupported', {
-			description:
-				'Your browser does not support the captcha. Please ensure your browser is up to date or try a different device.'
+		toast.error(m.contact_client_turnstile_unsupported_title(), {
+			description: m.contact_client_turnstile_unsupported_description()
 		});
 	}
 
@@ -110,32 +109,27 @@
 
 <DialogDrawer
 	bind:open={openPrivacyNotice}
-	title="Privacy Notice"
-	description="Your privacy matters. Here's how I handle your data when you contact me."
+	title={m.contact_privacy_info_title()}
+	description={m.contact_privacy_info_description()}
 	dialogContentCss="max-w-lg"
-	role="alertdialog"
 >
 	{#snippet body()}
 		<div class="flex flex-col gap-4 text-sm text-muted-foreground">
 			<p>
-				<strong>How I use your data</strong><br />
-				The information you provide in this form is used solely to send me an email containing your message.
-				I may use your data to respond to your inquiry.
+				<strong>{m.contact_privacy_info_section_1_title()}</strong><br />
+				{m.contact_privacy_info_section_1_content()}
 			</p>
 			<p>
-				<strong>Data sharing and storage</strong><br />
-				Your data will not be shared with third parties and will only be retained as long as necessary
-				to handle your message.
+				<strong>{m.contact_privacy_info_section_2_title()}</strong><br />
+				{m.contact_privacy_info_section_2_content()}
 			</p>
 			<p>
-				<strong>Your rights</strong><br />
-				You have the right to withdraw your consent at any time, request access to your data, or ask for
-				its deletion.
+				<strong>{m.contact_privacy_info_section_3_title()}</strong><br />
+				{m.contact_privacy_info_section_3_content()}
 			</p>
 			<p>
-				<strong>Contact</strong><br />
-				For any questions or to exercise your rights, please contact me through the contact form. Your
-				data is handled securely and only processed with your consent.
+				<strong>{m.contact_privacy_info_section_4_title()}</strong><br />
+				{m.contact_privacy_info_section_4_content()}
 			</p>
 		</div>
 	{/snippet}
@@ -144,42 +138,42 @@
 <section class="min-h-screen px-4 py-20" id="contact">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-16 text-center">
-			<h2 class="mb-6 text-3xl font-bold text-foreground md:text-4xl">Let's Connect</h2>
+			<h2 class="mb-6 text-3xl font-bold text-foreground md:text-4xl">{m.contact_title()}</h2>
 			<div class="mx-auto h-1 w-20 rounded-full bg-primary"></div>
 		</div>
 
 		<div class="grid gap-12 lg:grid-cols-2">
 			<div class="space-y-8">
 				<div>
-					<h3 class="mb-4 text-2xl font-semibold text-foreground">Send me a message</h3>
+					<h3 class="mb-4 text-2xl font-semibold text-foreground">
+						{m.contact_form_title()}
+					</h3>
 					<p class="text-muted-foreground">
-						Fill out the form below and I'll get back to you as soon as possible.
+						{m.contact_form_description()}
 					</p>
 				</div>
 				<form method="POST" use:enhance>
 					<Card.Root class="gap-2 bg-background">
 						<Card.Content>
 							<fieldset class="flex flex-col gap-2">
-								<legend class="sr-only">Contact Form</legend>
+								<legend class="sr-only">{m.contact_form_legend()}</legend>
 								<Form.Field {form} name="name">
 									<Form.Control>
 										{#snippet children({ props })}
-											<Form.Label>Name</Form.Label>
-											<div class="relative">
-												<UserIcon
-													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-													aria-hidden="true"
-												/>
-												<Input
+											<Form.Label>{m.contact_form_name_label()}</Form.Label>
+											<InputGroup.Root>
+												<InputGroup.Input
 													{...props}
 													{...$constraints.name}
 													bind:value={$formData.name}
 													disabled={$submitting}
-													placeholder="Your full name"
-													class="pl-10"
 													autocomplete="name"
+													placeholder={m.contact_form_name_placeholder()}
 												/>
-											</div>
+												<InputGroup.Addon>
+													<UserIcon />
+												</InputGroup.Addon>
+											</InputGroup.Root>
 										{/snippet}
 									</Form.Control>
 									<Form.FieldErrors />
@@ -187,23 +181,22 @@
 								<Form.Field {form} name="email">
 									<Form.Control>
 										{#snippet children({ props })}
-											<Form.Label>E-Mail</Form.Label>
-											<div class="relative">
-												<MailIcon
-													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-													aria-hidden="true"
-												/>
-												<Input
+											<Form.Label>{m.contact_form_email_label()}</Form.Label>
+											<InputGroup.Root>
+												<InputGroup.Input
 													{...props}
 													{...$constraints.email}
 													bind:value={$formData.email}
 													disabled={$submitting}
-													placeholder="Your e-mail"
 													type="email"
-													class="pl-10"
 													autocomplete="email"
+													pattern={undefined}
+													placeholder={m.contact_form_email_placeholder()}
 												/>
-											</div>
+												<InputGroup.Addon>
+													<MailIcon />
+												</InputGroup.Addon>
+											</InputGroup.Root>
 										{/snippet}
 									</Form.Control>
 									<Form.FieldErrors />
@@ -211,21 +204,19 @@
 								<Form.Field {form} name="subject">
 									<Form.Control>
 										{#snippet children({ props })}
-											<Form.Label>Subject</Form.Label>
-											<div class="relative">
-												<FileTextIcon
-													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-													aria-hidden="true"
-												/>
-												<Input
+											<Form.Label>{m.contact_form_subject_label()}</Form.Label>
+											<InputGroup.Root>
+												<InputGroup.Input
 													{...props}
 													{...$constraints.subject}
 													bind:value={$formData.subject}
 													disabled={$submitting}
-													placeholder="Subject of your message"
-													class="pl-10"
+													placeholder={m.contact_form_subject_placeholder()}
 												/>
-											</div>
+												<InputGroup.Addon>
+													<FileTextIcon />
+												</InputGroup.Addon>
+											</InputGroup.Root>
 										{/snippet}
 									</Form.Control>
 									<Form.FieldErrors />
@@ -233,21 +224,20 @@
 								<Form.Field {form} name="message">
 									<Form.Control>
 										{#snippet children({ props })}
-											<Form.Label>Message</Form.Label>
-											<div class="relative">
-												<MessageSquareIcon
-													class="absolute top-3 left-3 size-4 text-muted-foreground"
-													aria-hidden="true"
-												/>
-												<Textarea
+											<Form.Label>{m.contact_form_message_label()}</Form.Label>
+											<InputGroup.Root>
+												<InputGroup.Textarea
 													{...props}
 													{...$constraints.message}
 													bind:value={$formData.message}
 													disabled={$submitting}
-													placeholder="Why are you reaching out?"
-													class="max-h-96 pl-10"
+													placeholder={m.contact_form_message_placeholder()}
+													class="max-h-96 resize-y"
 												/>
-											</div>
+												<InputGroup.Addon>
+													<MessageSquareIcon />
+												</InputGroup.Addon>
+											</InputGroup.Root>
 										{/snippet}
 									</Form.Control>
 									<Form.FieldErrors />
@@ -255,26 +245,24 @@
 								<Form.Field {form} name="phoneNumber">
 									<Form.Control>
 										{#snippet children({ props })}
-											<Form.Label>Phone or mobile number (optional)</Form.Label>
-											<div class="relative">
-												<PhoneIcon
-													class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-													aria-hidden="true"
-												/>
-												<Input
+											<Form.Label>{m.contact_form_phone_label()}</Form.Label>
+											<InputGroup.Root>
+												<InputGroup.Input
 													{...props}
 													{...$constraints.phoneNumber}
 													bind:value={$formData.phoneNumber}
 													disabled={$submitting}
-													placeholder="How can I reach you by phone?"
+													placeholder={m.contact_form_phone_placeholder()}
 													aria-describedby="phone-description"
-													class="pl-10"
 												/>
-											</div>
+												<InputGroup.Addon>
+													<PhoneIcon />
+												</InputGroup.Addon>
+											</InputGroup.Root>
 										{/snippet}
 									</Form.Control>
 									<Form.Description id="phone-description">
-										Please provide your number according to the
+										{m.contact_form_phone_description_prefix()}
 										<Button
 											href="https://en.wikipedia.org/wiki/E.164"
 											target="_blank"
@@ -284,7 +272,7 @@
 										>
 											E.164
 										</Button>
-										international standard.
+										{m.contact_form_phone_description_suffix()}
 									</Form.Description>
 									<Form.FieldErrors />
 								</Form.Field>
@@ -295,19 +283,21 @@
 												<Checkbox
 													{...props}
 													{...$constraints.consent}
+													disabled={$submitting}
 													bind:checked={$formData.consent}
 													onCheckedChange={handleOnCheckedChangeConsent}
 												/>
 												<div class="grid gap-2">
-													<Form.Label>Consent to data processing</Form.Label>
+													<Form.Label>{m.contact_form_consent_label()}</Form.Label>
 													<p class="text-sm text-muted-foreground">
-														By checking this box, you agree to the following <Button
+														{m.contact_form_consent_description_prefix()}
+														<Button
 															onclick={handleOpenPrivacyNotice}
 															variant="link"
 															class="inline h-fit cursor-pointer p-0 align-baseline"
 														>
-															Privacy Notice
-														</Button>.
+															{m.contact_form_consent_description_suffix()}
+														</Button>
 													</p>
 												</div>
 											</div>
@@ -318,7 +308,7 @@
 								<Form.Field {form} name="turnstileToken">
 									<Form.Control>
 										{#snippet children({ props })}
-											<Form.Label>Captcha</Form.Label>
+											<Form.Label>{m.contact_form_captcha_label()}</Form.Label>
 											<div
 												use:turnstile
 												turnstile-sitekey={env.PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}
@@ -332,7 +322,6 @@
 												onturnstileexpired={handleTurnstileExpired}
 												onturnstiletimeout={handleTurnstileTimeout}
 												onturnstileunsupported={handleTurnstileUnsupported}
-												aria-label="Complete the captcha to submit the form"
 												role="group"
 											></div>
 
@@ -342,7 +331,6 @@
 												value={$formData.turnstileToken}
 												disabled={$submitting}
 												hidden
-												aria-label="Captcha token"
 											/>
 										{/snippet}
 									</Form.Control>
@@ -353,16 +341,17 @@
 						<Card.Footer>
 							<Form.Button
 								disabled={$submitting}
-								aria-label={$submitting ? 'Sending Message...' : 'Send Message'}
-								class="w-full cursor-pointer"
+								aria-label={$submitting ? m.contact_submitting_label() : m.contact_submit_label()}
+								class="w-full"
+								data-umami-event="contact-send-message"
 							>
 								{#if $submitting}
 									<LoaderCircleIcon class="animate-spin" aria-hidden="true" role="status" />
-									<span class="sr-only">Sending message...</span>
-									Sending Message...
+									<span class="sr-only">{m.contact_submitting_label()}</span>
+									{m.contact_submitting_label()}
 								{:else}
 									<SendIcon aria-hidden="true" />
-									Send Message
+									{m.contact_submit_label()}
 								{/if}
 							</Form.Button>
 						</Card.Footer>
@@ -372,23 +361,23 @@
 
 			<div class="space-y-8">
 				<div>
-					<h3 class="mb-4 text-2xl font-semibold text-foreground">Visit my socials</h3>
+					<h3 class="mb-4 text-2xl font-semibold text-foreground">{m.contact_socials_title()}</h3>
 					<p class="text-muted-foreground">
-						Find me on these platforms to see my work and connect professionally.
+						{m.contact_socials_description()}
 					</p>
 				</div>
 
 				<div class="space-y-6">
 					<SocialCard
 						icon={ExternalLinkIcon}
-						title="GitHub"
-						description="Check out my open source projects and contributions."
+						title={m.contact_socials_github_title()}
+						description={m.contact_socials_github_description()}
 						href="https://github.com/itsEzz"
 					/>
 					<SocialCard
 						icon={ExternalLinkIcon}
-						title="LinkedIn"
-						description="Let's connect professionally and discuss opportunities."
+						title={m.contact_socials_linkedin_title()}
+						description={m.contact_socials_linkedin_description()}
 						href="https://linkedin.com/in/adriangast"
 					/>
 				</div>

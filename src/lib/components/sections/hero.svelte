@@ -1,24 +1,38 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import { m } from '$lib/paraglide/messages';
+	import { cn } from '$lib/utils';
 	import { handleClickScrollTo } from '$lib/utils/scroll';
 	import { ExternalLinkIcon } from '@lucide/svelte';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import MailIcon from '@lucide/svelte/icons/mail';
+	import { mode } from 'mode-watcher';
 	import { fly } from 'svelte/transition';
-	import Particles from '../hero/particles.svelte';
+	import FaultyTerminal from '../svelte-bits/faulty-terminal.svelte';
 </script>
 
 <section class="flex min-h-screen items-center justify-center">
-	<!-- TODO replace particles with another background effect -->
-	<Particles />
+	<div class="absolute inset-0 -z-1">
+		<FaultyTerminal
+			scale={2}
+			digitSize={1.4}
+			timeScale={0.3}
+			scanlineIntensity={0.5}
+			curvature={0.1}
+			tint={mode.current === 'dark' ? '#8f8f8f' : '#121212'}
+			mouseReact={false}
+			mouseStrength={0.3}
+			pageLoadAnimation={true}
+			noiseAmp={1}
+			brightness={0.6}
+		/>
+	</div>
 	<div class="flex w-full flex-col items-center gap-8 md:gap-12">
-		<div
-			class="overflow-hidden rounded-full shadow-2xl shadow-primary/20"
-			transition:fly={{ duration: 1000, y: -200 }}
-		>
+		<div class="overflow-hidden rounded-full" transition:fly={{ duration: 1000, y: -200 }}>
 			<img
 				src="/avatar_large.png"
-				alt="Adrian"
+				alt={m.avatar_alt()}
 				class="size-48 object-cover transition-transform hover:scale-115 md:size-64"
 			/>
 		</div>
@@ -27,54 +41,62 @@
 				class="text-4xl font-extrabold md:text-7xl"
 				transition:fly={{ delay: 100, duration: 1000, y: 200 }}
 			>
-				Hi, I am <span class="text-primary">Adrian</span>
+				{m.hero_greeting_prefix()} <span class="text-primary">{m.hero_greeting_name()}</span>
 			</h1>
 			<h2
 				class="text-xl font-medium text-muted-foreground md:text-3xl"
 				transition:fly={{ delay: 200, duration: 1000, y: 200 }}
 			>
-				Full-Stack Developer, SOAR Professional & Tech Enthusiast
+				{m.hero_description()}
 			</h2>
 		</div>
 		<div class="flex justify-center gap-2">
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
 				<Button
-					class="cursor-pointer"
 					href="https://github.com/itsEzz"
 					target="_blank"
 					rel="external noreferrer noopener"
+					data-umami-event="hero-github"
 				>
-					<ExternalLinkIcon /> GitHub
+					<ExternalLinkIcon aria-hidden="true" />
+					{m.github()}
 				</Button>
 			</div>
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
 				<Button
-					class="cursor-pointer"
 					href="https://www.linkedin.com/in/adriangast/"
 					target="_blank"
 					rel="external noreferrer noopener"
+					data-umami-event="hero-linkedin"
 				>
-					<ExternalLinkIcon /> LinkedIn
+					<ExternalLinkIcon aria-hidden="true" />
+					{m.linkedin()}
 				</Button>
 			</div>
 			<div transition:fly={{ delay: 300, duration: 1000, y: 200 }}>
-				<Button class="cursor-pointer" onclick={() => handleClickScrollTo('contact')}>
-					<MailIcon />
-					Contact Me
+				<Button onclick={() => handleClickScrollTo('contact')} data-umami-event="hero-contact-me">
+					<MailIcon aria-hidden="true" />
+					{m.contact_me()}
 				</Button>
 			</div>
 		</div>
 		<div transition:fly={{ delay: 400, duration: 1000, y: 200 }}>
-			<Button
-				class="mt-4 animate-bounce cursor-pointer transition-all hover:scale-105"
-				variant="outline"
-				size="lg"
-				aria-label="Scroll to contact me section"
-				onclick={() => handleClickScrollTo('projects')}
-			>
-				<ChevronDownIcon />
-				Projects
-			</Button>
+			<Tooltip.Root>
+				<Tooltip.Trigger
+					class={cn(
+						'animate-bounce hover:scale-115',
+						buttonVariants({ variant: 'secondary', size: 'icon-lg' })
+					)}
+					onclick={() => handleClickScrollTo('projects')}
+					data-umami-event="hero-learn-more"
+				>
+					<ChevronDownIcon aria-hidden="true" />
+					<span class="sr-only">{m.learn_more()}</span>
+				</Tooltip.Trigger>
+				<Tooltip.Content>
+					<p>{m.learn_more()}</p>
+				</Tooltip.Content>
+			</Tooltip.Root>
 		</div>
 	</div>
 </section>

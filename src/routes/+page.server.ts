@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import { m } from '$lib/paraglide/messages.js';
 import { contactFormSchema } from '$lib/schemas/contact-schema.js';
 import { createChildLogger } from '$lib/server/logger.js';
 import { rateLimiter } from '$lib/server/rate-limiter.js';
@@ -23,13 +24,13 @@ const transport = nodemailer.createTransport({
 const logger = createChildLogger('contact-page');
 
 const turnstileErrorMessages: Record<string, string> = {
-	'missing-input-secret': 'Server configuration error. Please try again later.',
-	'invalid-input-secret': 'Server configuration error. Please try again later.',
-	'missing-input-response': 'Please complete the captcha.',
-	'invalid-input-response': 'Please try again.',
-	'bad-request': 'Invalid request. Please refresh the page and try again.',
-	'timeout-or-duplicate': 'Captcha has expired. Please refresh and try again.',
-	'internal-error': 'Verification service temporarily unavailable. Please try again later.'
+	'missing-input-secret': m.contact_server_turnstile_error_input_secret(),
+	'invalid-input-secret': m.contact_server_turnstile_error_input_secret(),
+	'missing-input-response': m.contact_server_turnstile_error_missing_input_response(),
+	'invalid-input-response': m.contact_server_turnstile_error_invalid_input_response(),
+	'bad-request': m.contact_server_turnstile_error_bad_request(),
+	'timeout-or-duplicate': m.contact_server_turnstile_error_timeout_or_duplicate(),
+	'internal-error': m.contact_server_turnstile_error_internal_error()
 };
 
 async function validateTurnstileToken(token: string): Promise<Result<boolean, string>> {
@@ -54,7 +55,7 @@ async function validateTurnstileToken(token: string): Promise<Result<boolean, st
 
 	if (isError(response)) {
 		logger.error(response.error, 'Turnstile verification request failed');
-		return failure('Turnstile token validation failed');
+		return failure(m.contact_server_turnstile_validation_failed());
 	}
 
 	if (!response.data.success) {
@@ -67,7 +68,7 @@ async function validateTurnstileToken(token: string): Promise<Result<boolean, st
 			return failure(errorMessage);
 		} else {
 			logger.error('Turnstile verification failed without error codes');
-			return failure('Please refresh the page and try again.');
+			return failure(m.contact_server_turnstile_validation_failed_generic());
 		}
 	}
 
@@ -91,8 +92,8 @@ export const actions = {
 			return fail(429, {
 				form,
 				error: {
-					title: 'Rate limit exceeded',
-					description: `Please wait ${status.retryAfter} seconds before trying again.`
+					title: m.rate_limit_exceeded_title(),
+					description: m.rate_limit_exceeded_description({ seconds: status.retryAfter })
 				}
 			});
 
@@ -100,8 +101,8 @@ export const actions = {
 			return fail(400, {
 				form,
 				error: {
-					title: 'Invalid form submission',
-					description: 'Please ensure you have filled out the form correctly.'
+					title: m.form_invalid_title(),
+					description: m.form_invalid_description()
 				}
 			});
 
@@ -111,7 +112,7 @@ export const actions = {
 			return fail(400, {
 				form,
 				error: {
-					title: 'Captcha verification failed',
+					title: m.contact_server_turnstile_captcha_failed(),
 					description: turnstileVerification.error
 				}
 			});
@@ -137,8 +138,8 @@ export const actions = {
 			return fail(400, {
 				form,
 				error: {
-					title: 'Message delivery failed',
-					description: "We couldn't send your message right now. Please try again in a few minutes."
+					title: m.contact_error_title(),
+					description: m.contact_error_description()
 				}
 			});
 		}
