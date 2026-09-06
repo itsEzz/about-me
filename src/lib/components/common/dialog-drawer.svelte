@@ -3,16 +3,15 @@
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
 	import { cn } from '$lib/utils';
 	import type { Snippet } from 'svelte';
-	import type { AriaRole } from 'svelte/elements';
 	import { MediaQuery } from 'svelte/reactivity';
 
 	// Props
 	interface Props {
 		open: boolean;
 		onOpenChange?: (open: boolean) => void;
-		title: string | Snippet;
+		title?: string | Snippet;
 		description?: string | Snippet;
-		body?: Snippet;
+		body: Snippet;
 		footer?: Snippet;
 		drawerContentCss?: string;
 		dialogContentCss?: string;
@@ -20,12 +19,8 @@
 		interactOutsideBehavior?:
 			'ignore' | 'close' | 'defer-otherwise-close' | 'defer-otherwise-ignore';
 		idToFocusOnOpen?: string;
-		role?: AriaRole;
-		'aria-describedby'?: string;
-		'aria-labelledby'?: string;
 	}
 
-	// eslint-disable-next-line svelte/no-unused-props
 	let {
 		open = $bindable(),
 		onOpenChange,
@@ -34,20 +29,20 @@
 		body,
 		footer,
 		drawerContentCss,
-		dialogContentCss = 'sm:max-w-[425px]',
+		dialogContentCss = 'sm:max-w-106.25',
 		escapeKeydownBehavior = 'close',
 		interactOutsideBehavior = 'close',
-		idToFocusOnOpen,
-		role,
-		'aria-describedby': ariaDescribedby = 'dialog-description',
-		'aria-labelledby': ariaLabelledby = 'dialog-title'
+		idToFocusOnOpen
 	}: Props = $props();
 
 	// Variables & States
 	const isDesktop = new MediaQuery('(min-width: 768px)');
+	const id = $props.id();
+	const titleId = `dialog-title-${id}`;
+	const descriptionId = `dialog-description-${id}`;
 
-	// Functions
-	function onOpenAutoFocus(event: Event) {
+	// Handlers
+	function handleOnOpenAutoFocus(event: Event) {
 		if (!idToFocusOnOpen) return;
 
 		event.preventDefault();
@@ -62,21 +57,22 @@
 			class={dialogContentCss}
 			{escapeKeydownBehavior}
 			{interactOutsideBehavior}
-			{onOpenAutoFocus}
-			{role}
-			aria-describedby={ariaDescribedby}
-			aria-labelledby={ariaLabelledby}
+			onOpenAutoFocus={handleOnOpenAutoFocus}
+			aria-labelledby={titleId}
+			aria-describedby={descriptionId}
 		>
 			<Dialog.Header>
-				<Dialog.Title id={ariaLabelledby}>
-					{#if typeof title === 'string'}
-						{title}
-					{:else}
-						{@render title()}
-					{/if}
-				</Dialog.Title>
+				{#if title}
+					<Dialog.Title id={titleId}>
+						{#if typeof title === 'string'}
+							{title}
+						{:else}
+							{@render title()}
+						{/if}
+					</Dialog.Title>
+				{/if}
 				{#if description}
-					<Dialog.Description id={ariaDescribedby}>
+					<Dialog.Description id={descriptionId}>
 						{#if typeof description === 'string'}
 							{description}
 						{:else}
@@ -85,8 +81,8 @@
 					</Dialog.Description>
 				{/if}
 			</Dialog.Header>
-			<div id={!description ? ariaDescribedby : undefined}>
-				{@render body?.()}
+			<div id={!description ? descriptionId : undefined}>
+				{@render body()}
 			</div>
 			{#if footer}
 				<Dialog.Footer>
@@ -101,21 +97,22 @@
 			class={drawerContentCss}
 			{escapeKeydownBehavior}
 			{interactOutsideBehavior}
-			{onOpenAutoFocus}
-			{role}
-			aria-describedby={ariaDescribedby}
-			aria-labelledby={ariaLabelledby}
+			onOpenAutoFocus={handleOnOpenAutoFocus}
+			aria-labelledby={titleId}
+			aria-describedby={descriptionId}
 		>
-			<Drawer.Header>
-				<Drawer.Title id={ariaLabelledby}>
-					{#if typeof title === 'string'}
-						{title}
-					{:else}
-						{@render title()}
-					{/if}
-				</Drawer.Title>
+			<Drawer.Header class="text-start">
+				{#if title}
+					<Drawer.Title id={titleId}>
+						{#if typeof title === 'string'}
+							{title}
+						{:else}
+							{@render title()}
+						{/if}
+					</Drawer.Title>
+				{/if}
 				{#if description}
-					<Drawer.Description id={ariaDescribedby}>
+					<Drawer.Description id={descriptionId}>
 						{#if typeof description === 'string'}
 							{description}
 						{:else}
@@ -125,8 +122,8 @@
 				{/if}
 			</Drawer.Header>
 			<div
-				id={!description ? ariaDescribedby : undefined}
-				class={cn('mx-4 flex-1 overflow-y-auto', !footer && 'mb-4')}
+				id={!description ? descriptionId : undefined}
+				class={cn('overflow-y-auto px-4 pt-1', !footer && 'pb-4')}
 			>
 				{@render body?.()}
 			</div>
