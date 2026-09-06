@@ -184,7 +184,9 @@
 <section class="min-h-screen bg-secondary/50 px-4 py-20" id="projects">
 	<div class="mx-auto max-w-6xl">
 		<div class="text-center">
-			<h2 class="mb-6 text-3xl font-bold text-foreground md:text-4xl">Projects & Tech Stack</h2>
+			<h2 class="mb-6 text-3xl font-bold text-foreground md:text-4xl">
+				{m.projects_techstack_title()}
+			</h2>
 			<div class="mx-auto h-1 w-20 rounded-full bg-primary"></div>
 		</div>
 
