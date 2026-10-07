@@ -5,20 +5,20 @@
 	let {
 		ref = $bindable(null),
 		class: className,
-		inset,
+		variant = "legend",
 		children,
 		...restProps
-	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
-		inset?: boolean;
+	}: WithElementRef<HTMLAttributes<HTMLLegendElement>> & {
+		variant?: "legend" | "label";
 	} = $props();
 </script>
 
-<div
+<legend
 	bind:this={ref}
-	data-slot="dropdown-menu-label"
-	data-inset={inset}
-	class={cn("text-muted-foreground px-2 py-1.5 text-xs font-medium data-inset:pl-8", className)}
+	data-slot="field-legend"
+	data-variant={variant}
+	class={cn("mb-3 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base", className)}
 	{...restProps}
 >
 	{@render children?.()}
-</div>
+</legend>
