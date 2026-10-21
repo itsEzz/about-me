@@ -5,7 +5,7 @@
 
 	// Props
 	interface Props {
-		icon: Component<IconProps, object, ''>;
+		icon: Component<Omit<IconProps, 'iconNode'>, object, ''>;
 		title: string;
 		description: string;
 		href: string;
