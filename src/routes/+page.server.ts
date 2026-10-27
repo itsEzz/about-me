@@ -1,9 +1,18 @@
-import { env } from '$env/dynamic/private';
-import { m } from '$lib/paraglide/messages.js';
-import { contactFormSchema } from '$lib/schemas/contact-schema.js';
-import { createChildLogger } from '$lib/server/logger.js';
-import { rateLimiter } from '$lib/server/rate-limiter.js';
-import type { TurnstileVerifyResponse } from '$lib/types/turnstile.js';
+import {
+	SMTP_HOST,
+	SMTP_PORT,
+	SMTP_USER,
+	SMTP_PASS,
+	CLOUDFLARE_TURNSTILE_SECRET,
+	FROM_EMAIL,
+	TO_EMAIL
+} from '$app/env/private';
+
+import { m } from '#lib/paraglide/messages.js';
+import { contactFormSchema } from '#lib/schemas/contact-schema.js';
+import { createChildLogger } from '#lib/server/logger.js';
+import { rateLimiter } from '#lib/server/rate-limiter.js';
+import type { TurnstileVerifyResponse } from '#lib/types/turnstile.js';
 import { failure, isError, success, tca, type Result } from '@itsezz/try-catch';
 import { fail } from '@sveltejs/kit';
 import nodemailer from 'nodemailer';
@@ -12,13 +21,10 @@ import { zod4 } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad } from './$types.js';
 
 const transport = nodemailer.createTransport({
-	host: env.SMTP_HOST,
-	port: parseInt(env.SMTP_PORT),
+	host: SMTP_HOST,
+	port: parseInt(SMTP_PORT),
 	secure: false,
-	auth: {
-		user: env.SMTP_USER,
-		pass: env.SMTP_PASS
-	}
+	auth: { user: SMTP_USER, pass: SMTP_PASS }
 });
 
 const logger = createChildLogger('contact-page');
@@ -37,13 +43,8 @@ async function validateTurnstileToken(token: string): Promise<Result<boolean, st
 	const response = await tca(async () => {
 		const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
 			method: 'POST',
-			headers: {
-				'content-type': 'application/json'
-			},
-			body: JSON.stringify({
-				response: token,
-				secret: env.CLOUDFLARE_TURNSTILE_SECRET
-			})
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({ response: token, secret: CLOUDFLARE_TURNSTILE_SECRET })
 		});
 
 		if (!response.ok) return { success: false, 'error-codes': ['bad-request'] };
@@ -119,8 +120,8 @@ export const actions = {
 
 		const mailResult = await tca(
 			transport.sendMail({
-				from: env.FROM_EMAIL,
-				to: env.TO_EMAIL,
+				from: FROM_EMAIL,
+				to: TO_EMAIL,
 				subject: `Contact Form: ${form.data.subject}`,
 				html: `
 					<h2>New Contact Form Submission</h2>

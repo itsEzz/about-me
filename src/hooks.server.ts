@@ -1,17 +1,19 @@
-import type { Handle, ServerInit } from '@sveltejs/kit';
-import { paraglideMiddleware } from '$lib/paraglide/server';
-import { getTextDirection } from '$lib/paraglide/runtime';
-import { getLogger } from '$lib/server/logger';
+import type { Handle, ServerInit } from '@sveltejs/kit/hooks';
+import { paraglideMiddleware } from '#lib/paraglide/server.js';
+import { getTextDirection } from '#lib/paraglide/runtime.js';
+import { getLogger } from '#lib/server/logger.js';
 
 // creating a handle to use the paraglide middleware
 const paraglideHandle: Handle = ({ event, resolve }) =>
 	paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
-		event.request = localizedRequest;
-		return resolve(event, {
-			transformPageChunk: ({ html }) => {
-				return html.replace('%lang%', locale).replace('%dir%', getTextDirection(locale));
+		return resolve(
+			{ ...event, request: localizedRequest },
+			{
+				transformPageChunk: ({ html }) => {
+					return html.replace('%lang%', locale).replace('%dir%', getTextDirection(locale));
+				}
 			}
-		});
+		);
 	});
 
 export const handle: Handle = paraglideHandle;

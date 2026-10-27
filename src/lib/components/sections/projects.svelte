@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { m } from '$lib/paraglide/messages';
-	import { projects } from '$lib/projects';
+	import { m } from '#lib/paraglide/messages.js';
+	import { projects } from '#lib/projects.js';
 	import ProjectCard from '../projects/project-card.svelte';
 	import LogoLoop, { type LogoItem } from '../svelte-bits/logo-loop.svelte';
 

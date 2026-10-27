@@ -1,4 +1,4 @@
-import { env } from '$env/dynamic/private';
+import { RATE_LIMITER_IP, RATE_LIMITER_IPUA } from '$app/env/private';
 import { tc } from '@itsezz/try-catch';
 import type { Rate } from 'sveltekit-rate-limiter/server';
 import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
@@ -10,8 +10,8 @@ function parseRate(raw: string | undefined, fallback: Rate | Rate[]): Rate | Rat
 	else return fallback;
 }
 
-const ipRate = parseRate(env.RATE_LIMITER_IP, [3, '5m']);
-const ipuaRate = parseRate(env.RATE_LIMITER_IPUA, [2, '5m']);
+const ipRate = parseRate(RATE_LIMITER_IP, [3, '5m']);
+const ipuaRate = parseRate(RATE_LIMITER_IPUA, [2, '5m']);
 
 export const rateLimiter = new RetryAfterRateLimiter({
 	IP: ipRate,

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import FuzzyText from '$lib/components/svelte-bits/fuzzy-text.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { m } from '$lib/paraglide/messages';
+	import FuzzyText from '#lib/components/svelte-bits/fuzzy-text.svelte';
+	import { Button } from '#lib/components/ui/button/index.js';
+	import { m } from '#lib/paraglide/messages.js';
 	import { HouseIcon } from '@lucide/svelte';
 </script>
 

@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { env } from '$env/dynamic/public';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Card from '$lib/components/ui/card/index.js';
-	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
-	import * as Form from '$lib/components/ui/form/index.js';
-	import { Input } from '$lib/components/ui/input';
-	import * as InputGroup from '$lib/components/ui/input-group/index.js';
-	import { m } from '$lib/paraglide/messages';
-	import type { ContactFormSchema } from '$lib/schemas/contact-schema';
+	import { PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY } from '$app/env/public';
+	import { Button } from '#lib/components/ui/button/index.js';
+	import * as Card from '#lib/components/ui/card/index.js';
+	import { Checkbox } from '#lib/components/ui/checkbox/index.js';
+	import * as Form from '#lib/components/ui/form/index.js';
+	import { Input } from '#lib/components/ui/input/index.js';
+	import * as InputGroup from '#lib/components/ui/input-group/index.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import type { ContactFormSchema } from '#lib/schemas/contact-schema.js';
 	import { ExternalLinkIcon } from '@lucide/svelte';
 	import FileTextIcon from '@lucide/svelte/icons/file-text';
 	import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle';
@@ -311,7 +311,7 @@
 											<Form.Label>{m.contact_form_captcha_label()}</Form.Label>
 											<div
 												use:turnstile
-												turnstile-sitekey={env.PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}
+												turnstile-sitekey={PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY}
 												turnstile-theme="auto"
 												turnstile-size="flexible"
 												turnstile-language="en"

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Badge from '$lib/components/ui/badge/badge.svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import * as Card from '$lib/components/ui/card/index.js';
-	import { m } from '$lib/paraglide/messages';
-	import type { Project } from '$lib/types/projects';
+	import Badge from '#lib/components/ui/badge/badge.svelte';
+	import Button from '#lib/components/ui/button/button.svelte';
+	import * as Card from '#lib/components/ui/card/index.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import type { Project } from '#lib/types/projects.js';
 	import { ExternalLink } from '@lucide/svelte';
 
 	// Props

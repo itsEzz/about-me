@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import Contact from '$lib/components/sections/contact.svelte';
-	import Hero from '$lib/components/sections/hero.svelte';
-	import Projects from '$lib/components/sections/projects.svelte';
-	import { m } from '$lib/paraglide/messages';
-	import { contactFormSchema } from '$lib/schemas/contact-schema';
-	import type { ContactComponent } from '$lib/types/contact';
+	import Contact from '#lib/components/sections/contact.svelte';
+	import Hero from '#lib/components/sections/hero.svelte';
+	import Projects from '#lib/components/sections/projects.svelte';
+	import { m } from '#lib/paraglide/messages.js';
+	import { contactFormSchema } from '#lib/schemas/contact-schema.js';
+	import type { ContactComponent } from '#lib/types/contact.js';
 	import { untrack } from 'svelte';
 	import SvelteSeo from 'svelte-seo';
 	import { toast } from 'svelte-sonner';

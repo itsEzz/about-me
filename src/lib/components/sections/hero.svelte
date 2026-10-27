@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
-	import { m } from '$lib/paraglide/messages';
-	import { cn } from '$lib/utils';
-	import { handleClickScrollTo } from '$lib/utils/scroll';
+	import { Button, buttonVariants } from '#lib/components/ui/button/index.js';
+	import * as Tooltip from '#lib/components/ui/tooltip/index.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { cn } from '#lib/utils.js';
+	import { handleClickScrollTo } from '#lib/utils/scroll.js';
 	import { ExternalLinkIcon } from '@lucide/svelte';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import MailIcon from '@lucide/svelte/icons/mail';
