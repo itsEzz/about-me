@@ -15,7 +15,7 @@
 	<link rel="icon" href="favicon.svg" />
 
 	<!-- Analytics -->
-	{#if env.PUBLIC_UMAMI_WEBSITE_ID}
+	{#if env.PUBLIC_UMAMI_WEBSITE_ID && env.PUBLIC_UMAMI_SCRIPT_URL}
 		<script
 			defer
 			src={env.PUBLIC_UMAMI_SCRIPT_URL}
