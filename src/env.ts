@@ -2,13 +2,13 @@ import { defineEnvVars } from '@sveltejs/kit/env';
 import z from 'zod';
 
 export const variables = defineEnvVars({
-	SMTP_HOST: { schema: z.string() },
-	SMTP_PORT: { schema: z.string().regex(/^\d+$/) },
+	SMTP_HOST: { schema: z.string().optional() },
+	SMTP_PORT: { schema: z.string().regex(/^\d+$/).optional().default('587') },
 	SMTP_USER: { schema: z.string().optional() },
 	SMTP_PASS: { schema: z.string().optional() },
-	CLOUDFLARE_TURNSTILE_SECRET: { schema: z.string() },
-	FROM_EMAIL: { schema: z.email() },
-	TO_EMAIL: { schema: z.email() },
+	CLOUDFLARE_TURNSTILE_SECRET: { schema: z.string().optional().default('') },
+	FROM_EMAIL: { schema: z.email().optional() },
+	TO_EMAIL: { schema: z.email().optional() },
 	PUBLIC_UMAMI_WEBSITE_ID: { public: true, schema: z.string().optional() },
 	PUBLIC_UMAMI_SCRIPT_URL: { public: true, schema: z.string().optional() },
 	PUBLIC_UMAMI_HOST_URL: { public: true, schema: z.string().optional() },
@@ -20,5 +20,5 @@ export const variables = defineEnvVars({
 	PUBLIC_UMAMI_DO_NOT_TRACK: { public: true, schema: z.enum(['true', 'false']).optional() },
 	RATE_LIMITER_IP: { schema: z.string().optional() },
 	RATE_LIMITER_IPUA: { schema: z.string().optional() },
-	PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: { public: true, schema: z.string() }
+	PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: { public: true, schema: z.string().optional().default('') }
 });
