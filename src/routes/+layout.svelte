@@ -18,7 +18,7 @@
 	{#if env.PUBLIC_UMAMI_WEBSITE_ID}
 		<script
 			defer
-			src="/proxy/stats.js"
+			src={env.PUBLIC_UMAMI_SCRIPT_URL}
 			data-website-id={env.PUBLIC_UMAMI_WEBSITE_ID}
 			data-host-url={env.PUBLIC_UMAMI_HOST_URL}
 			data-domains={env.PUBLIC_UMAMI_DOMAINS}
