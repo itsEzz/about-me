@@ -10,10 +10,7 @@ function parseRate(raw: string | undefined, fallback: Rate | Rate[]): Rate | Rat
 	else return fallback;
 }
 
-const ipRate = parseRate(RATE_LIMITER_IP, [3, '5m']);
-const ipuaRate = parseRate(RATE_LIMITER_IPUA, [2, '5m']);
-
 export const rateLimiter = new RetryAfterRateLimiter({
-	IP: ipRate,
-	IPUA: ipuaRate
+	IP: parseRate(RATE_LIMITER_IP, [3, '5m']),
+	IPUA: parseRate(RATE_LIMITER_IPUA, [2, '5m'])
 });
