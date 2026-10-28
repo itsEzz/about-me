@@ -18,7 +18,7 @@ import { fail } from '@sveltejs/kit';
 import nodemailer from 'nodemailer';
 import { superValidate } from 'sveltekit-superforms';
 import { zod4 } from 'sveltekit-superforms/adapters';
-import type { PageServerLoad } from './$types.js';
+import type { PageServerLoad, RequestEvent } from './$types.js';
 
 const transport = nodemailer.createTransport({
 	host: SMTP_HOST,
@@ -85,7 +85,7 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions = {
-	default: async (event) => {
+	default: async (event: RequestEvent) => {
 		const status = await rateLimiter.check(event);
 		const form = await superValidate(event.request, zod4(contactFormSchema), { strict: true });
 
