@@ -4,6 +4,7 @@
 		"esbenp.prettier-vscode",
 		"dbaeumer.vscode-eslint",
 		"bradlc.vscode-tailwindcss",
-		"inlang.vs-code-extension"
+		"inlang.vs-code-extension",
+		"VoidZero.vite-plus-extension-pack"
 	]
 }
