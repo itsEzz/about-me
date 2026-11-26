@@ -15,17 +15,29 @@
 <section class="flex min-h-screen items-center justify-center">
 	<div class="absolute inset-0 -z-1">
 		<FaultyTerminal
+			tint="#8f8f8f"
+			glyphs="blocks"
 			scale={2}
-			digitSize={1.4}
-			timeScale={0.3}
-			scanlineIntensity={0.5}
+			digitSize={1.2}
+			timeScale={0.5}
+			brightness={0.1}
+			glow={0.5}
+			persistence={0.5}
+			mouseStrength={0.5}
+			mouseGlow={0.6}
 			curvature={0.1}
-			tint={mode.current === 'dark' ? '#8f8f8f' : '#121212'}
-			mouseReact={false}
-			mouseStrength={0.3}
-			pageLoadAnimation={true}
+			vignette={0.25}
+			clickEffect="none"
+			scramble={0.5}
+			scanlineIntensity={0.3}
+			glitchAmount={1}
+			flickerAmount={0.5}
 			noiseAmp={1}
-			brightness={0.6}
+			chromaticAberration={0}
+			mouseReact={false}
+			pageLoadAnimation
+			pause={false}
+			lightMode={mode.current === 'light'}
 		/>
 	</div>
 	<div class="flex w-full flex-col items-center gap-8 md:gap-12">
