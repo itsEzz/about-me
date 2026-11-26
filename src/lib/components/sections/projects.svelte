@@ -194,13 +194,24 @@
 			<div class="flex flex-col items-center gap-2">
 				<LogoLoop
 					{logos}
+					bend={0.5}
+					magnify={0.8}
+					labels="hover"
 					speed={50}
-					logoHeight={60}
-					gap={60}
 					direction="left"
-					fadeOut={false}
+					logoHeight={44}
+					gap={44}
+					hoverSpeed={0}
 					scaleOnHover={true}
-					class="mt-8"
+					ariaLabel="Technology partners"
+					tiltX={0}
+					tiltY={0}
+					fadeOut
+					fadeOutWidth={0.12}
+					scrollBoost={0}
+					step={true}
+					draggable
+					intro
 				/>
 				<span class="text-muted-foreground">{m.projects_techstack_more()}</span>
 			</div>
