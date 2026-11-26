@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { Button, buttonVariants } from '#lib/components/ui/button/index.js';
-	import * as Tooltip from '#lib/components/ui/tooltip/index.js';
+	import { Button } from '#lib/components/ui/button/index.js';
 	import { m } from '#lib/paraglide/messages.js';
-	import { cn } from '#lib/utils.js';
 	import { handleClickScrollTo } from '#lib/utils/scroll.js';
 	import { ExternalLinkIcon } from '@lucide/svelte';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
@@ -93,22 +91,16 @@
 			</div>
 		</div>
 		<div transition:fly={{ delay: 400, duration: 1000, y: 200 }}>
-			<Tooltip.Root>
-				<Tooltip.Trigger
-					class={cn(
-						'animate-bounce hover:scale-115',
-						buttonVariants({ variant: 'secondary', size: 'icon-lg' })
-					)}
-					onclick={() => handleClickScrollTo('projects')}
-					data-umami-event="hero-learn-more"
-				>
-					<ChevronDownIcon aria-hidden="true" />
-					<span class="sr-only">{m.learn_more()}</span>
-				</Tooltip.Trigger>
-				<Tooltip.Content>
-					<p>{m.learn_more()}</p>
-				</Tooltip.Content>
-			</Tooltip.Root>
+			<Button
+				variant="secondary"
+				class="animate-bounce hover:scale-115"
+				size="lg"
+				onclick={() => handleClickScrollTo('projects')}
+				data-umami-event="hero-learn-more"
+			>
+				<ChevronDownIcon aria-hidden="true" />
+				{m.learn_more()}
+			</Button>
 		</div>
 	</div>
 </section>
