@@ -8,6 +8,7 @@
 	import { mode } from 'mode-watcher';
 	import { fly } from 'svelte/transition';
 	import FaultyTerminal from '../svelte-bits/faulty-terminal.svelte';
+	import ProfileCard from '../svelte-bits/profile-card.svelte';
 </script>
 
 <section class="flex min-h-screen items-center justify-center">
@@ -39,11 +40,19 @@
 		/>
 	</div>
 	<div class="flex w-full flex-col items-center gap-8 md:gap-12">
-		<div class="overflow-hidden rounded-full" transition:fly={{ duration: 1000, y: -200 }}>
-			<img
-				src="/avatar_large.png"
-				alt={m.avatar_alt()}
-				class="size-48 object-cover transition-transform hover:scale-115 md:size-64"
+		<div transition:fly={{ duration: 1000, y: -200 }}>
+			<ProfileCard
+				avatarUrl="/profile_image.jpg"
+				holo={0.8}
+				glare={0.5}
+				tiltStrength={12}
+				parallax={0}
+				radius={16}
+				enableTilt
+				intro
+				enableMobileTilt
+				theme={mode.current}
+				class="w-48! md:w-72!"
 			/>
 		</div>
 		<div class="flex flex-col items-center gap-4 text-center">
