@@ -195,7 +195,7 @@
 				<LogoLoop
 					{logos}
 					bend={0.5}
-					magnify={0.8}
+					magnify={0.2}
 					labels="below"
 					speed={50}
 					direction="left"
