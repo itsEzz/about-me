@@ -196,7 +196,7 @@
 					{logos}
 					bend={0.5}
 					magnify={0.8}
-					labels="hover"
+					labels="below"
 					speed={50}
 					direction="left"
 					logoHeight={44}
@@ -209,7 +209,6 @@
 					fadeOut
 					fadeOutWidth={0.12}
 					scrollBoost={0}
-					step={true}
 					draggable
 					intro
 				/>
